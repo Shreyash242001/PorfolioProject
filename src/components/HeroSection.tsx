@@ -88,7 +88,7 @@ const HeroSection = () => {
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="/ResumeShreyasMar05.pdf"
+              href={`${import.meta.env.BASE_URL}ResumeShreyasMar05.pdf`}
               download="Shreyas_Sonawane_Resume.pdf"
               className="px-8 py-3 rounded-xl font-semibold glass-card flex items-center gap-2 text-foreground hover:border-neon-purple/50 transition-all"
             >
