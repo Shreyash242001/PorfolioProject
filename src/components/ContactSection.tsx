@@ -1,11 +1,26 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Mail, Phone, Linkedin, Github, Send } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, Send, Loader2 } from "lucide-react";
+import emailjs from "@emailjs/browser";
+import { toast } from "sonner";
+
+// ──────────────────────────────────────────────────────────
+// 🔑 Replace these with your actual EmailJS credentials
+//    1. Go to https://www.emailjs.com → Sign Up (free)
+//    2. Add an Email Service (Gmail) → copy the Service ID
+//    3. Create an Email Template with variables:
+//       {{from_name}}, {{from_email}}, {{message}}
+//    4. Go to Account → copy your Public Key
+// ──────────────────────────────────────────────────────────
+const EMAILJS_SERVICE_ID = "service_08kw6ps";
+const EMAILJS_TEMPLATE_ID = "template_6synalr";
+const EMAILJS_PUBLIC_KEY = "I8khWL736h1TtkZI_";
 
 const ContactSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSending, setIsSending] = useState(false);
 
   const contactLinks = [
     { icon: Mail, label: "shreyashsonu2001@gmail.com", href: "mailto:shreyashsonu2001@gmail.com" },
@@ -13,6 +28,46 @@ const ContactSection = () => {
     { icon: Linkedin, label: "LinkedIn Profile", href: "https://www.linkedin.com/in/shreyash-sonawane242001" },
     { icon: Github, label: "GitHub Profile", href: "https://github.com/Shreyash242001" },
   ];
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Basic validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      toast.error("Please fill in all fields before sending.");
+      return;
+    }
+
+    // Simple email format check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    setIsSending(true);
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+
+      toast.success("Message sent successfully! I'll get back to you soon. 🚀");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      toast.error("Failed to send message. Please try again or email me directly.");
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   return (
     <section id="contact" className="py-24 relative" ref={ref}>
@@ -60,7 +115,7 @@ const ContactSection = () => {
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.3, duration: 0.6 }}
               className="glass-card p-6 space-y-4"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}
             >
               {(["name", "email"] as const).map((field) => (
                 <div key={field} className="relative">
@@ -69,7 +124,8 @@ const ContactSection = () => {
                     placeholder={field === "name" ? "Your Name" : "Your Email"}
                     value={formData[field]}
                     onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
-                    className="w-full bg-muted/50 border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all"
+                    disabled={isSending}
+                    className="w-full bg-muted/50 border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </div>
               ))}
@@ -78,16 +134,26 @@ const ContactSection = () => {
                 rows={4}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full bg-muted/50 border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all resize-none"
+                disabled={isSending}
+                className="w-full bg-muted/50 border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all resize-none disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={!isSending ? { scale: 1.02 } : {}}
+                whileTap={!isSending ? { scale: 0.98 } : {}}
                 type="submit"
-                className="w-full py-3 rounded-xl font-semibold text-primary-foreground flex items-center justify-center gap-2 neon-glow-purple"
+                disabled={isSending}
+                className="w-full py-3 rounded-xl font-semibold text-primary-foreground flex items-center justify-center gap-2 neon-glow-purple disabled:opacity-70 disabled:cursor-not-allowed"
                 style={{ background: "linear-gradient(135deg, hsl(265 90% 65%), hsl(220 100% 60%))" }}
               >
-                <Send className="w-4 h-4" /> Send Message
+                {isSending ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" /> Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" /> Send Message
+                  </>
+                )}
               </motion.button>
             </motion.form>
           </div>
