@@ -49,10 +49,10 @@ const SkillsSection = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 dark:text-white">
             Technical <span className="text-gradient">Skills</span>
           </h2>
-          <div className="w-20 h-1 mx-auto mb-12 rounded-full" style={{ background: "linear-gradient(90deg, hsl(265 90% 65%), hsl(185 100% 55%))" }} />
+          <div className="section-divider" />
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {skillCategories.map((cat, ci) => (
@@ -61,24 +61,24 @@ const SkillsSection = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: ci * 0.2, duration: 0.5 }}
-                className="glass-card p-6 hover-lift"
+                className="glass-card p-6 hover-lift dark:bg-white/5 dark:border-white/10"
               >
-                <h3 className="text-lg font-bold mb-6 text-center" style={{ color: cat.color }}>
+                <h3 className="text-lg font-bold mb-6 text-center dark:text-white" style={{ color: cat.color }}>
                   {cat.title}
                 </h3>
                 <div className="space-y-4">
                   {cat.skills.map((skill, si) => (
                     <div key={skill.name}>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm font-medium text-foreground">{skill.name}</span>
-                        <span className="text-xs text-muted-foreground">{skill.level}%</span>
+                        <span className="text-sm font-medium text-foreground dark:text-white/80">{skill.name}</span>
+                        <span className="text-xs text-muted-foreground dark:text-white/40">{skill.level}%</span>
                       </div>
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-2 bg-muted dark:bg-white/10 rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
                           transition={{ delay: ci * 0.2 + si * 0.1 + 0.3, duration: 0.8, ease: "easeOut" }}
-                          className="h-full rounded-full"
+                          className="h-full rounded-full dark:bg-white/60"
                           style={{ background: `linear-gradient(90deg, ${cat.color}, ${cat.color}aa)` }}
                         />
                       </div>

@@ -19,9 +19,9 @@ const BackToTop = () => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-primary flex items-center justify-center neon-glow-purple hover:scale-110 transition-transform"
+          className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-primary flex items-center justify-center neon-glow-purple hover:scale-110 transition-all dark:bg-white dark:text-black dark:neon-glow-none dark:shadow-2xl"
         >
-          <ArrowUp className="w-5 h-5 text-primary-foreground" />
+          <ArrowUp className="w-5 h-5 text-primary-foreground dark:text-black" />
         </motion.button>
       )}
     </AnimatePresence>

@@ -40,10 +40,10 @@ const ExperienceSection = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 dark:text-white">
             Work <span className="text-gradient">Experience</span>
           </h2>
-          <div className="w-20 h-1 mx-auto mb-12 rounded-full" style={{ background: "linear-gradient(90deg, hsl(265 90% 65%), hsl(185 100% 55%))" }} />
+          <div className="section-divider" />
 
           <div className="max-w-3xl mx-auto relative">
             {/* Timeline line */}
@@ -60,15 +60,15 @@ const ExperienceSection = () => {
                 }`}
               >
                 {/* Dot */}
-                <div className="absolute left-4 md:left-1/2 top-2 w-4 h-4 rounded-full bg-primary neon-glow-purple md:-translate-x-2 z-10" />
+                <div className="timeline-dot" />
 
                 <div className="glass-card p-6 hover-lift">
                   <div className="flex items-center gap-2 mb-2">
-                    <Briefcase className="w-4 h-4 text-neon-cyan" />
-                    <span className="text-xs font-mono text-neon-cyan">{exp.period}</span>
+                    <Briefcase className="w-4 h-4 text-neon-cyan dark:text-white" />
+                    <span className="text-xs font-mono text-neon-cyan dark:text-white/40">{exp.period}</span>
                   </div>
-                  <h3 className="text-lg font-bold text-foreground">{exp.title}</h3>
-                  <p className="text-sm text-primary mb-3">{exp.company}</p>
+                  <h3 className="text-lg font-bold text-foreground dark:text-white">{exp.title}</h3>
+                  <p className="text-sm text-primary dark:text-white/60 mb-3">{exp.company}</p>
                   <ul className="space-y-2">
                     {exp.points.map((p, pi) => (
                       <li key={pi} className="text-sm text-muted-foreground flex gap-2">

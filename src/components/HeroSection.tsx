@@ -58,7 +58,7 @@ const HeroSection = () => {
             Welcome to my portfolio
           </motion.p>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight dark:text-white">
             Hi, I'm{" "}
             <span className="text-gradient">Shreyas Sonawane</span>
           </h1>
@@ -66,11 +66,11 @@ const HeroSection = () => {
           <div className="h-10 md:h-12 mb-6 flex items-center justify-center">
             <span className="text-xl md:text-2xl font-mono text-muted-foreground">
               {displayText}
-              <span className="inline-block w-0.5 h-6 bg-neon-cyan ml-1 animate-pulse-glow" />
+              <span className="inline-block w-0.5 h-6 bg-neon-cyan dark:bg-white ml-1 animate-pulse-glow" />
             </span>
           </div>
 
-          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed dark:text-white/60">
             Building scalable backend systems and modern web applications. 
             Passionate about distributed systems, microservices architecture, and clean code.
           </p>
@@ -80,8 +80,7 @@ const HeroSection = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => scrollTo("projects")}
-              className="px-8 py-3 rounded-xl font-semibold text-primary-foreground neon-glow-purple transition-all"
-              style={{ background: "linear-gradient(135deg, hsl(265 90% 65%), hsl(220 100% 60%))" }}
+              className="btn-primary"
             >
               View Projects
             </motion.button>
@@ -90,7 +89,9 @@ const HeroSection = () => {
               whileTap={{ scale: 0.95 }}
               href={`${import.meta.env.BASE_URL}ResumeShreyasMar05.pdf`}
               download="Shreyas_Sonawane_Resume.pdf"
-              className="px-8 py-3 rounded-xl font-semibold glass-card flex items-center gap-2 text-foreground hover:border-neon-purple/50 transition-all"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 rounded-xl font-semibold glass-card flex items-center gap-2 text-foreground transition-all dark:bg-white/5 dark:border-white/10 dark:hover:bg-white/10"
             >
               <Download className="w-4 h-4" /> Download Resume
             </motion.a>
@@ -98,7 +99,7 @@ const HeroSection = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => scrollTo("contact")}
-              className="px-8 py-3 rounded-xl font-semibold border border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan/10 transition-all flex items-center gap-2"
+              className="btn-secondary"
             >
               <Mail className="w-4 h-4" /> Contact Me
             </motion.button>

@@ -37,10 +37,10 @@ const ProjectsSection = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 dark:text-white">
             Featured <span className="text-gradient">Projects</span>
           </h2>
-          <div className="w-20 h-1 mx-auto mb-12 rounded-full" style={{ background: "linear-gradient(90deg, hsl(265 90% 65%), hsl(185 100% 55%))" }} />
+          <div className="section-divider" />
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {projects.map((project, i) => (
@@ -52,24 +52,24 @@ const ProjectsSection = () => {
                 className="glass-card p-6 hover-lift group"
               >
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-lg font-bold text-foreground group-hover:text-neon-cyan transition-colors">
+                  <h3 className="text-lg font-bold text-foreground group-hover:text-neon-cyan transition-colors dark:text-white dark:group-hover:text-white/60">
                     {project.title}
                   </h3>
                   <div className="flex gap-2">
-                    <button className="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground">
+                    <button className="p-2 rounded-lg hover:bg-muted dark:hover:bg-white/5 transition-colors text-muted-foreground hover:text-foreground dark:hover:text-white">
                       <Github className="w-4 h-4" />
                     </button>
-                    <button className="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground">
+                    <button className="p-2 rounded-lg hover:bg-muted dark:hover:bg-white/5 transition-colors text-muted-foreground hover:text-foreground dark:hover:text-white">
                       <ExternalLink className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{project.description}</p>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed dark:text-white/40">{project.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="text-xs font-mono px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                      className="text-xs font-mono px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 dark:bg-white/5 dark:text-white/60 dark:border-white/10"
                     >
                       {t}
                     </span>

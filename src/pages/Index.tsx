@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import MeshBackground from "@/components/MeshBackground";
+import CustomCursor from "@/components/CustomCursor";
 import ParticleBackground from "@/components/ParticleBackground";
 import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
@@ -14,16 +16,28 @@ import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "neon");
+
+  useEffect(() => {
+    if (theme === "obsidian") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   if (loading) {
     return <LoadingScreen onComplete={() => setLoading(false)} />;
   }
 
   return (
-    <div className="relative min-h-screen grid-bg">
-      <ParticleBackground />
+    <div className={`relative min-h-screen grid-bg ${theme === 'obsidian' ? 'cursor-none' : ''}`}>
+      {theme === "obsidian" && <CustomCursor />}
+      <MeshBackground />
+      <ParticleBackground theme={theme} />
       <ScrollProgress />
-      <Navbar />
+      <Navbar theme={theme} setTheme={setTheme} />
       <HeroSection />
       <AboutSection />
       <SkillsSection />
@@ -34,9 +48,9 @@ const Index = () => {
       <BackToTop />
 
       {/* Footer */}
-      <footer className="py-8 border-t border-border">
+      <footer className="py-8 border-t border-border dark:border-white/10">
         <div className="container mx-auto px-6 text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground dark:text-white/40">
             © 2024 Shreyas Sonawane. Built with passion and clean code.
           </p>
         </div>

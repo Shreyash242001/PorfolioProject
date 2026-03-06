@@ -6,6 +6,7 @@
 
 @layer base {
   :root {
+    /* Original Neon Theme (Default) */
     --background: 230 25% 7%;
     --foreground: 210 40% 96%;
 
@@ -50,6 +51,44 @@
     --sidebar-accent-foreground: 210 40% 96%;
     --sidebar-border: 230 20% 18%;
     --sidebar-ring: 265 90% 65%;
+
+    --theme-name: "neon";
+  }
+
+  .dark {
+    /* Obsidian Professional Theme (Enhanced) */
+    --background: 240 10% 3.5%;
+    --foreground: 210 20% 98%;
+
+    --card: 240 10% 5%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 240 10% 5%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 0 0% 100%; /* Pure White/Silver for Pro */
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 210 20% 80%; /* Silver Accent */
+    --secondary-foreground: 0 0% 0%;
+
+    --muted: 240 10% 8%;
+    --muted-foreground: 210 10% 60%;
+
+    --accent: 210 20% 20%;
+    --accent-foreground: 210 20% 98%;
+
+    --border: 240 10% 12%;
+    --input: 240 10% 12%;
+    --ring: 0 0% 100%;
+
+    --neon-purple: 0 0% 100%;
+    --neon-cyan: 210 20% 80%;
+    --neon-blue: 210 20% 60%;
+    --glass: 240 10% 6%;
+    --glass-border: 240 10% 15%;
+
+    --theme-name: "obsidian";
   }
 }
 
@@ -90,7 +129,30 @@
   }
 
   .glass-card {
-    @apply bg-glass/30 backdrop-blur-xl border border-glass-border/40 rounded-xl;
+    @apply bg-glass/30 backdrop-blur-xl border border-glass-border/40 rounded-xl transition-all duration-300;
+  }
+
+  .dark .glass-card {
+    @apply bg-white/5 border-white/10;
+  }
+
+  .section-divider {
+    @apply w-20 h-1 mx-auto mb-12 rounded-full transition-all duration-500;
+    background: linear-gradient(90deg, hsl(265 90% 65%), hsl(185 100% 55%));
+  }
+
+  .dark .section-divider {
+    @apply bg-white/20;
+    background-image: none;
+  }
+
+  .timeline-dot {
+    @apply absolute left-4 md:left-1/2 top-2 w-4 h-4 rounded-full bg-primary neon-glow-purple md:-translate-x-2 z-10 transition-all duration-500;
+  }
+
+  .dark .timeline-dot {
+    @apply bg-white;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
   }
 
   .neon-glow-purple {
@@ -102,8 +164,32 @@
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent;
+    @apply bg-clip-text text-transparent transition-all duration-500;
     background-image: linear-gradient(135deg, hsl(265 90% 65%), hsl(185 100% 55%));
+  }
+
+  .dark .text-gradient {
+    background-image: none;
+    @apply text-white/40;
+  }
+
+  .btn-primary {
+    @apply px-8 py-3 rounded-xl font-semibold text-white transition-all duration-300 neon-glow-purple;
+    background: linear-gradient(135deg, hsl(265 90% 65%), hsl(220 100% 60%));
+  }
+
+  .dark .btn-primary {
+    @apply bg-white text-black shadow-2xl;
+    background: white;
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-secondary {
+    @apply px-8 py-3 rounded-xl font-semibold border border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan/10 transition-all flex items-center gap-2;
+  }
+
+  .dark .btn-secondary {
+    @apply border-white/20 text-white/60 hover:bg-white/5 hover:text-white;
   }
 
   .text-gradient-blue {

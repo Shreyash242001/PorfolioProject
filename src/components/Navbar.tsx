@@ -1,9 +1,15 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Sun, Moon } from "lucide-react";
 
 const sections = ["Home", "About", "Skills", "Experience", "Projects", "Education", "Contact"];
 
-const Navbar = () => {
+interface NavbarProps {
+  theme: string;
+  setTheme: (theme: string) => void;
+}
+
+const Navbar = ({ theme, setTheme }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("Home");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,6 +30,8 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const toggleTheme = () => setTheme(theme === "neon" ? "obsidian" : "neon");
+
   const scrollTo = (id: string) => {
     document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
     setMenuOpen(false);
@@ -43,20 +51,45 @@ const Navbar = () => {
         </button>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-1">
-          {sections.map((s) => (
-            <button
-              key={s}
-              onClick={() => scrollTo(s)}
-              className={`px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
-                active === s
-                  ? "text-neon-cyan bg-neon-cyan/10"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {s}
-            </button>
-          ))}
+        <div className="hidden md:flex items-center gap-6">
+          <div className="flex items-center gap-1">
+            {sections.map((s) => (
+              <button
+                key={s}
+                onClick={() => scrollTo(s)}
+                className={`px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
+                  active === s
+                    ? "text-neon-cyan bg-neon-cyan/10"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full hover:bg-white/5 transition-colors relative h-10 w-10 flex items-center justify-center overflow-hidden"
+            aria-label="Toggle theme"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={theme}
+                initial={{ y: 20, opacity: 0, rotate: 45 }}
+                animate={{ y: 0, opacity: 1, rotate: 0 }}
+                exit={{ y: -20, opacity: 0, rotate: -45 }}
+                transition={{ duration: 0.2 }}
+              >
+                {theme === "neon" ? (
+                  <Moon className="w-5 h-5 text-neon-cyan" />
+                ) : (
+                  <Sun className="w-5 h-5 text-yellow-500" />
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </button>
         </div>
 
         {/* Mobile toggle */}

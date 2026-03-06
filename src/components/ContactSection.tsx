@@ -77,10 +77,10 @@ const ContactSection = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 dark:text-white">
             Get In <span className="text-gradient">Touch</span>
           </h2>
-          <div className="w-20 h-1 mx-auto mb-12 rounded-full" style={{ background: "linear-gradient(90deg, hsl(265 90% 65%), hsl(185 100% 55%))" }} />
+          <div className="section-divider" />
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Contact info */}
@@ -100,10 +100,10 @@ const ContactSection = () => {
                     transition={{ delay: i * 0.1, duration: 0.4 }}
                     className="glass-card p-4 flex items-center gap-4 hover-lift group block"
                   >
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                      <link.icon className="w-5 h-5 text-neon-cyan" />
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-primary/10 group-hover:bg-primary/20 dark:bg-white/5 dark:group-hover:bg-white/10 transition-colors">
+                      <link.icon className="w-5 h-5 text-neon-cyan dark:text-white" />
                     </div>
-                    <span className="text-sm text-foreground">{link.label}</span>
+                    <span className="text-sm text-foreground dark:text-white/80">{link.label}</span>
                   </motion.a>
                 ))}
               </div>
@@ -125,7 +125,7 @@ const ContactSection = () => {
                     value={formData[field]}
                     onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
                     disabled={isSending}
-                    className="w-full bg-muted/50 border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-muted/50 dark:bg-white/5 border border-border dark:border-white/10 rounded-xl px-4 py-3 text-sm text-foreground dark:text-white placeholder:text-muted-foreground dark:placeholder:text-white/20 focus:outline-none focus:border-primary dark:focus:border-white focus:ring-1 focus:ring-primary/50 dark:focus:ring-white/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </div>
               ))}
@@ -135,15 +135,14 @@ const ContactSection = () => {
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 disabled={isSending}
-                className="w-full bg-muted/50 border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-muted/50 dark:bg-white/5 border border-border dark:border-white/10 rounded-xl px-4 py-3 text-sm text-foreground dark:text-white placeholder:text-muted-foreground dark:placeholder:text-white/20 focus:outline-none focus:border-primary dark:focus:border-white focus:ring-1 focus:ring-primary/50 dark:focus:ring-white/20 transition-all resize-none disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <motion.button
                 whileHover={!isSending ? { scale: 1.02 } : {}}
                 whileTap={!isSending ? { scale: 0.98 } : {}}
                 type="submit"
                 disabled={isSending}
-                className="w-full py-3 rounded-xl font-semibold text-primary-foreground flex items-center justify-center gap-2 neon-glow-purple disabled:opacity-70 disabled:cursor-not-allowed"
-                style={{ background: "linear-gradient(135deg, hsl(265 90% 65%), hsl(220 100% 60%))" }}
+                className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isSending ? (
                   <>

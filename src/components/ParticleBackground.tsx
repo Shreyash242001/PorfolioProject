@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 
-const ParticleBackground = () => {
+interface ParticleBackgroundProps {
+  theme: string;
+}
+
+const ParticleBackground = ({ theme }: ParticleBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -68,7 +72,7 @@ const ParticleBackground = () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
     };
-  }, []);
+  }, [theme]);
 
   return <canvas ref={canvasRef} className="fixed inset-0 z-0 pointer-events-none" />;
 };
