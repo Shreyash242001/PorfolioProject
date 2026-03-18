@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const skillCategories = [
   {
@@ -43,9 +43,27 @@ const skillCategories = [
   },
 ];
 
+// Dark mode (obsidian) bar styles — white/gray
+const darkGradient = "linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,0.5))";
+const darkGlow = "rgba(255, 255, 255, 0.15)";
+
 const SkillsSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: false, margin: "-100px" });
+  const [isDark, setIsDark] = useState(() =>
+    document.documentElement.classList.contains("dark")
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="skills" className="py-24 relative" ref={ref}>
@@ -69,7 +87,10 @@ const SkillsSection = () => {
                 transition={{ delay: ci * 0.2, duration: 0.5 }}
                 className="glass-card p-6 hover-lift dark:bg-white/5 dark:border-white/10"
               >
-                <h3 className="text-lg font-bold mb-6 text-center dark:text-white" style={{ color: cat.color }}>
+                <h3
+                  className="text-lg font-bold mb-6 text-center"
+                  style={{ color: isDark ? "rgba(255,255,255,0.9)" : cat.color }}
+                >
                   {cat.title}
                 </h3>
                 <div className="space-y-4">
@@ -86,8 +107,10 @@ const SkillsSection = () => {
                           transition={{ delay: ci * 0.2 + si * 0.1 + 0.3, duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
                           className="h-full rounded-full relative overflow-hidden"
                           style={{
-                            background: cat.gradient,
-                            boxShadow: `0 0 10px ${cat.glow}, 0 0 20px ${cat.glow.replace('0.5', '0.2')}`,
+                            background: isDark ? darkGradient : cat.gradient,
+                            boxShadow: isDark
+                              ? `0 0 10px ${darkGlow}, 0 0 20px ${darkGlow}`
+                              : `0 0 10px ${cat.glow}, 0 0 20px ${cat.glow.replace('0.5', '0.2')}`,
                           }}
                         >
                           {inView && (
@@ -118,3 +141,4 @@ const SkillsSection = () => {
 };
 
 export default SkillsSection;
+
