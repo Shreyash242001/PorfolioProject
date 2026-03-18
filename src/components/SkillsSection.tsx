@@ -45,7 +45,7 @@ const skillCategories = [
 
 const SkillsSection = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: false, margin: "-100px" });
 
   return (
     <section id="skills" className="py-24 relative" ref={ref}>
@@ -83,13 +83,27 @@ const SkillsSection = () => {
                         <motion.div
                           initial={{ width: 0 }}
                           animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
-                          transition={{ delay: ci * 0.2 + si * 0.1 + 0.3, duration: 0.8, ease: "easeOut" }}
-                          className="h-full rounded-full"
+                          transition={{ delay: ci * 0.2 + si * 0.1 + 0.3, duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                          className="h-full rounded-full relative overflow-hidden"
                           style={{
                             background: cat.gradient,
-                            boxShadow: `0 0 8px ${cat.glow}`,
+                            boxShadow: `0 0 10px ${cat.glow}, 0 0 20px ${cat.glow.replace('0.5', '0.2')}`,
                           }}
-                        />
+                        >
+                          {inView && (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ delay: ci * 0.2 + si * 0.1 + 1.5 }}
+                              className="absolute inset-0"
+                              style={{
+                                background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)',
+                                backgroundSize: '200% 100%',
+                                animation: 'shimmer 2s infinite linear',
+                              }}
+                            />
+                          )}
+                        </motion.div>
                       </div>
                     </div>
                   ))}
