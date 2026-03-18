@@ -5,6 +5,8 @@ const skillCategories = [
   {
     title: "Backend",
     color: "hsl(265 90% 65%)",
+    gradient: "linear-gradient(90deg, #a855f7, #ec4899)",
+    glow: "rgba(168, 85, 247, 0.5)",
     skills: [
       { name: "Java", level: 90 },
       { name: "Spring Boot", level: 92 },
@@ -16,6 +18,8 @@ const skillCategories = [
   {
     title: "Frontend",
     color: "hsl(185 100% 55%)",
+    gradient: "linear-gradient(90deg, #06b6d4, #22d3ee)",
+    glow: "rgba(6, 182, 212, 0.5)",
     skills: [
       { name: "React.js", level: 85 },
       { name: "JavaScript", level: 88 },
@@ -26,6 +30,8 @@ const skillCategories = [
   {
     title: "DevOps & Tools",
     color: "hsl(220 100% 60%)",
+    gradient: "linear-gradient(90deg, #3b82f6, #8b5cf6)",
+    glow: "rgba(59, 130, 246, 0.5)",
     skills: [
       { name: "Docker", level: 82 },
       { name: "Kubernetes", level: 75 },
@@ -71,15 +77,18 @@ const SkillsSection = () => {
                     <div key={skill.name}>
                       <div className="flex justify-between mb-1">
                         <span className="text-sm font-medium text-foreground dark:text-white/80">{skill.name}</span>
-                        <span className="text-xs text-muted-foreground dark:text-white/40">{skill.level}%</span>
+                        <span className="text-xs text-muted-foreground dark:text-white/80">{skill.level}%</span>
                       </div>
-                      <div className="h-2 bg-muted dark:bg-white/10 rounded-full overflow-hidden">
+                      <div className="h-3 bg-muted dark:bg-white/5 rounded-full overflow-hidden border border-transparent dark:border-white/10">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
                           transition={{ delay: ci * 0.2 + si * 0.1 + 0.3, duration: 0.8, ease: "easeOut" }}
-                          className="h-full rounded-full dark:bg-white/60"
-                          style={{ background: `linear-gradient(90deg, ${cat.color}, ${cat.color}aa)` }}
+                          className="h-full rounded-full"
+                          style={{
+                            background: cat.gradient,
+                            boxShadow: `0 0 8px ${cat.glow}`,
+                          }}
                         />
                       </div>
                     </div>
