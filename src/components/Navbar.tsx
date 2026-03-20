@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
+import LiveClock from "./LiveClock";
 
 const sections = ["Home", "About", "Skills", "Experience", "Projects", "Education", "Contact"];
 
@@ -68,6 +69,12 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
             ))}
           </div>
 
+          {/* Live Clock */}
+          {/* <LiveClock /> */}
+
+          {/* Divider */}
+          {/* <div className="w-px h-5 bg-border dark:bg-white/10" /> */}
+
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
@@ -90,7 +97,12 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
               </motion.div>
             </AnimatePresence>
           </button>
+          {/* Divider */}
+        <div className="w-px h-5 bg-border dark:bg-white/10" />
+        <LiveClock />
         </div>
+
+        
 
         {/* Mobile toggle */}
         <button

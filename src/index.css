@@ -227,6 +227,24 @@
       linear-gradient(90deg, hsl(265 90% 65% / 0.03) 1px, transparent 1px);
     background-size: 60px 60px;
   }
+
+  /* Live Clock */
+  .live-clock-digit {
+    color: hsl(var(--neon-cyan));
+  }
+
+  .dark .live-clock-digit {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .live-clock-colon {
+    color: hsl(var(--neon-purple));
+    animation: colon-pulse 1s ease-in-out infinite;
+  }
+
+  .dark .live-clock-colon {
+    color: rgba(255, 255, 255, 0.3);
+  }
 }
 
 @keyframes float {
@@ -237,6 +255,11 @@
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 1; }
+}
+
+@keyframes colon-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 @keyframes typing {
