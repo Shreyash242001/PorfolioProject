@@ -87,7 +87,7 @@ const HeroSection = () => {
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="./ResumeShreyasMar05.pdf"
+              href="./Shreyas_Sonwane_Resume (1).pdf"
               download="Shreyas_Sonawane_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
