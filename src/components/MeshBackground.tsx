@@ -30,7 +30,10 @@ const MeshBackground: React.FC = () => {
       />
 
       {/* Noise Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      <div 
+        className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none" 
+        style={{ backgroundImage: `url('${import.meta.env.BASE_URL}noise.svg')` }}
+      />
     </div>
   );
 };
